@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import Blog from "../model/Blog";
-import User from "../model/User";
+import Blog from "../model/Blog.js";
+import User from "../model/User.js";
 
 export const getAllBlogs = async (req, res, next) => {
   let blogs;
@@ -25,7 +25,7 @@ export const addBlog = async (req, res, next) => {
     return console.log(err);
   }
   if (!existingUser) {
-    return res.status(400).json({ message: "Unable TO FInd User By This ID" });
+    return res.status(400).json({ message: "Unable To Find User By This ID" });
   }
   const blog = new Blog({
     title,
