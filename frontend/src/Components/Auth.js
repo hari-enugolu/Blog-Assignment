@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { authActions } from "../store";
+import { useNavigate } from "react-router-dom";
 
 export default function Auth() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [isSignup, setIsSignup] = useState(false);
   const [inputs, setInputs] = useState({ name: "", email: "", password: "" });
   const handleChange = (e) => {
     setInputs((prevState) => ({
@@ -10,10 +16,34 @@ export default function Auth() {
       [e.target.name]: e.target.value,
     }));
   };
-  const [isSignup, setIsSignup] = useState(false);
+
+  const sendRequest = async (type = "login") => {
+    const res = await axios
+      .post(`http://localhost:5000/api/user/${type}`, {
+        name: inputs.name,
+        email: inputs.email,
+        password: inputs.password,
+      })
+      .catch((err) => console.log(err));
+
+    const data = await res.data;
+    return data;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputs);
+    if (isSignup) {
+      sendRequest("signup")
+        .then(() => dispatch(authActions.login()))
+        .then(() => navigate("/blogs"))
+        .then((data) => console.log(data));
+    } else {
+      sendRequest()
+        .then(() => dispatch(authActions.login()))
+        .then(() => navigate("/blogs"))
+        .then((data) => console.log(data));
+    }
   };
   return (
     <div>
