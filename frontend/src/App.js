@@ -1,27 +1,44 @@
-import React from "react";
-import Header from "./Components/Header";
-import { Route, Routes } from "react-router-dom";
-import Auth from "./Components/Auth";
-import Blogs from "./Components/Blogs";
-import UserBlog from "./Components/UserBlog";
-import BlogDetail from "./Components/BlogDetail";
-import AddBlog from "./Components/AddBlog";
-import { useSelector } from "react-redux";
+import Header from "./components/Header.js";
+import Blogs from "./components/Blogs.js";
+import UserBlogs from "./components/UserBlogs.js";
+import BlogDetail from "./components/BlogDetail.js";
+import AddBlog from "./components/AddBlog.js";
 
+import React, { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import Auth from "./components/Auth.js";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "./store";
 function App() {
+  const dispath = useDispatch();
+
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   console.log(isLoggedIn);
+  useEffect(() => {
+    if (localStorage.getItem("userId")) {
+      dispath(authActions.login());
+    }
+  }, [dispath]);
   return (
-    <>
-      <Header />
-      <Routes>
-        <Route path="/auth" element={<Auth />}></Route>
-        <Route path="/blogs" element={<Blogs />}></Route>
-        <Route path="/blogs/add" element={<AddBlog />}></Route>
-        <Route path="/myBlogs" element={<UserBlog />}></Route>
-        <Route path="/myBlogs/id:" element={<BlogDetail />}></Route>
-      </Routes>
-    </>
+    <React.Fragment>
+      <header>
+        <Header />
+      </header>
+      <main>
+        <Routes>
+          {!isLoggedIn ? (
+            <Route path="/auth" element={<Auth />} />
+          ) : (
+            <>
+              <Route path="/blogs" element={<Blogs />} />
+              <Route path="/blogs/add" element={<AddBlog />} />
+              <Route path="/myBlogs" element={<UserBlogs />} />
+              <Route path="/myBlogs/:id" element={<BlogDetail />} />{" "}
+            </>
+          )}
+        </Routes>
+      </main>
+    </React.Fragment>
   );
 }
 

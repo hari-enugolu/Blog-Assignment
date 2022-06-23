@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Blog from "./Blog";
 
-function Blogs() {
+const Blogs = () => {
   const [blogs, setBlogs] = useState();
   const sendRequest = async () => {
     const res = await axios
@@ -20,7 +20,6 @@ function Blogs() {
       {blogs &&
         blogs.map((blog, index) => (
           <Blog
-            key={index}
             id={blog._id}
             isUser={localStorage.getItem("userId") === blog.user._id}
             title={blog.title}
@@ -31,6 +30,6 @@ function Blogs() {
         ))}
     </div>
   );
-}
+};
 
 export default Blogs;

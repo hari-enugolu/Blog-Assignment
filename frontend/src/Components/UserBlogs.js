@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Blog from "./Blog";
 
-const UserBlog = () => {
+const UserBlogs = () => {
   const [user, setUser] = useState();
   const id = localStorage.getItem("userId");
   const sendRequest = async () => {
@@ -36,4 +36,4 @@ const UserBlog = () => {
   );
 };
 
-export default UserBlog;
+export default UserBlogs;
