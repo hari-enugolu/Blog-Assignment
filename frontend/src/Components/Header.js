@@ -45,6 +45,12 @@ function Header() {
                 sx={{ color: "black" }}
                 label="My blogs"
               ></Tab>
+              <Tab
+                LinkComponent={Link}
+                to="/blogs/add"
+                sx={{ color: "black" }}
+                label="Add Blogs"
+              ></Tab>
             </Tabs>
           </Box>
         )}

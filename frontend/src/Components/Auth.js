@@ -35,11 +35,13 @@ export default function Auth() {
     console.log(inputs);
     if (isSignup) {
       sendRequest("signup")
+        .then((data) => localStorage.setItem("userId", data.use._id))
         .then(() => dispatch(authActions.login()))
         .then(() => navigate("/blogs"))
         .then((data) => console.log(data));
     } else {
-      sendRequest()
+      sendRequest("login")
+        .then((data) => localStorage.setItem("userId", data.user._id))
         .then(() => dispatch(authActions.login()))
         .then(() => navigate("/blogs"))
         .then((data) => console.log(data));
