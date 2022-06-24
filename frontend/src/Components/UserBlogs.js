@@ -9,7 +9,7 @@ const UserBlogs = () => {
     const res = await axios
       .get(`http://localhost:5000/api/blog/user/${id}`)
       .catch((err) => console.log(err));
-    const data = await res.data;
+    const data = await res?.data;
     return data;
   };
   useEffect(() => {
@@ -18,7 +18,6 @@ const UserBlogs = () => {
   console.log(user);
   return (
     <div>
-      {" "}
       {user &&
         user.blogs &&
         user.blogs.map((blog, index) => (

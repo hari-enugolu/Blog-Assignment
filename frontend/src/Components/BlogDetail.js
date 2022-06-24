@@ -21,27 +21,27 @@ const BlogDetail = () => {
     const res = await axios
       .get(`http://localhost:5000/api/blog/${id}`)
       .catch((err) => console.log(err));
-    const data = await res.data;
+    const data = await res?.data;
     return data;
   };
   useEffect(() => {
     fetchDetails().then((data) => {
-      setBlog(data.blog);
+      setBlog(data?.blog);
       setInputs({
-        title: data.blog.title,
-        description: data.blog.description,
+        title: data?.blog?.title,
+        description: data?.blog?.description,
       });
     });
   }, [id]);
   const sendRequest = async () => {
     const res = await axios
       .put(`http://localhost:5000/api/blog/update/${id}`, {
-        title: inputs.title,
-        description: inputs.description,
+        title: inputs?.title,
+        description: inputs?.description,
       })
       .catch((err) => console.log(err));
 
-    const data = await res.data;
+    const data = await res?.data;
     return data;
   };
   console.log(blog);

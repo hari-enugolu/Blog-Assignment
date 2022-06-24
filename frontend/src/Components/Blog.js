@@ -23,7 +23,7 @@ const Blog = ({ title, description, imageURL, userName, isUser, id }) => {
     const res = await axios
       .delete(`http://localhost:5000/api/blog/${id}`)
       .catch((err) => console.log(err));
-    const data = await res.data;
+    const data = await res?.data;
     return data;
   };
   const handleDelete = () => {
@@ -72,8 +72,6 @@ const Blog = ({ title, description, imageURL, userName, isUser, id }) => {
         />
 
         <CardContent>
-          <hr />
-          <br />
           <Typography variant="body2" color="text.secondary">
             <b>{userName}</b> {": "} {description}
           </Typography>
