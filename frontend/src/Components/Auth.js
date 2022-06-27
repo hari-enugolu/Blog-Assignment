@@ -29,7 +29,7 @@ const Auth = () => {
       })
       .catch((err) => console.log(err));
 
-    const data = await res.data;
+    const data = await res?.data;
     console.log(data);
     return data;
   };
@@ -44,7 +44,7 @@ const Auth = () => {
         .then(() => naviagte("/blogs"));
     } else {
       sendRequest()
-        .then((data) => localStorage.setItem("userId", data.user._id))
+        .then((data) => localStorage.setItem("userId", data?.user?._id))
         .then(() => dispath(authActions.login()))
         .then(() => naviagte("/blogs"));
     }

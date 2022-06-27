@@ -9,6 +9,8 @@ import { Route, Routes } from "react-router-dom";
 import Auth from "./components/Auth.js";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "./store";
+import AdminPage from "./components/AdminPage.js";
+
 function App() {
   const dispath = useDispatch();
 
@@ -30,12 +32,14 @@ function App() {
             <Route path="/auth" element={<Auth />} />
           ) : (
             <>
+              <Route path="/admin" element={<AdminPage />} />
               <Route path="/blogs" element={<Blogs />} />
               <Route path="/blogs/add" element={<AddBlog />} />
               <Route path="/myBlogs" element={<UserBlogs />} />
-              <Route path="/myBlogs/:id" element={<BlogDetail />} />{" "}
+              <Route path="/myBlogs/:id" element={<BlogDetail />} />
             </>
           )}
+          ;
         </Routes>
       </main>
     </React.Fragment>
