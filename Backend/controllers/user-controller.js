@@ -27,6 +27,7 @@ export const signup = async (req, res, next) => {
       .status(400)
       .json({ message: "User Already Exists! Login Instead" });
   }
+
   const hashedPassword = bcrypt.hashSync(password);
 
   const user = new User({
@@ -63,4 +64,17 @@ export const login = async (req, res, next) => {
   return res
     .status(200)
     .json({ message: "Login Successfull", user: existingUser });
+};
+
+export const Admin = async (req, res, next) => {
+  let admin;
+  try {
+    admin = await Admin.find();
+  } catch (err) {
+    console.log(err);
+  }
+  if (!admin) {
+    return res.status(404).json({ message: "No Users Found" });
+  }
+  return res.status(200).json({ admin });
 };
